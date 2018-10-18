@@ -2,7 +2,7 @@
 $setting=array (
   'site_name' => '在线监测',
   'site_domain' => 'http://www.hanhouai.com/',
-  'site_logo' => 'images/logo_302_52.png',
+  'site_logo' => 'images/AIMonitor_Logo_1.png',
   'site_icp' => '',
   'site_terms' => '',
   'site_stats' => '',
