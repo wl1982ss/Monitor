@@ -2,7 +2,7 @@
 /**
  * DiliCMS
  *
- * 一款基于并面向CodeIgniter开发者的开源轻型后端内容管理系统.
+ * 涓�娆惧熀浜庡苟闈㈠悜CodeIgniter寮�鍙戣�呯殑寮�婧愯交鍨嬪悗绔唴瀹圭鐞嗙郴缁�.
  *
  * @package     DiliCMS
  * @author      DiliCMS Team
@@ -16,7 +16,7 @@
 // ------------------------------------------------------------------------
 
 /**
- * DiliCMS 系统相关控制器
+ * DiliCMS 绯荤粺鐩稿叧鎺у埗鍣�
  *
  * @package     DiliCMS
  * @subpackage  Controllers
@@ -27,7 +27,7 @@
 class Youyan extends Admin_Controller
 {
 	/**
-     * 构造函数
+     * 鏋勯�犲嚱鏁�
      *
      * @access  public
      * @return  void
@@ -41,18 +41,18 @@ class Youyan extends Admin_Controller
 	// ------------------------------------------------------------------------
 	
 	/**
-     * 油烟监测数据
+     * 娌圭儫鐩戞祴鏁版嵁
      *
      * @access  public
      * @return  void
      */
-	public function index()
+	public function index($role = 0)
 	{
 		
 		$offset = $this->input->get('page', TRUE) ? $this->input->get('page', TRUE) : 0; 
 		$data['list'] = $this->user_mdl->get_users($role, 15, $offset);
 		
-		//加载分页
+		//鍔犺浇鍒嗛〉
 		$this->load->library('pagination');
 		$config['base_url'] = backend_url('user/view') . '?dilicms';
 		$config['per_page'] = 15;
@@ -63,13 +63,15 @@ class Youyan extends Admin_Controller
 		$data['pagination'] = $this->pagination->create_links();
 		$this->_template('youyan_list', $data);
 		
+		//$this->_template('youyan_list_test');
+		
 		
 	}
 	
 	// ------------------------------------------------------------------------
 	
 	/**
-     * 油烟监测数据
+     * 娌圭儫鐩戞祴鏁版嵁
      *
      * @access  public
      * @return  void
@@ -80,7 +82,7 @@ class Youyan extends Admin_Controller
 		$offset = $this->input->get('page', TRUE) ? $this->input->get('page', TRUE) : 0; 
 		$data['list'] = $this->user_mdl->get_users($role, 15, $offset);
 		
-		//加载分页
+		//鍔犺浇鍒嗛〉
 		$this->load->library('pagination');
 		$config['base_url'] = backend_url('user/view') . '?dilicms';
 		$config['per_page'] = 15;
@@ -97,7 +99,7 @@ class Youyan extends Admin_Controller
 // ------------------------------------------------------------------------
 	
 	/**
-     * 油烟监测设备
+     * 娌圭儫鐩戞祴璁惧
      *
      * @access  public
      * @return  void
@@ -108,7 +110,7 @@ class Youyan extends Admin_Controller
 		$offset = $this->input->get('page', TRUE) ? $this->input->get('page', TRUE) : 0; 
 		$data['list'] = $this->user_mdl->get_users($role, 15, $offset);
 		
-		//加载分页
+		//鍔犺浇鍒嗛〉
 		$this->load->library('pagination');
 		$config['base_url'] = backend_url('user/view') . '?dilicms';
 		$config['per_page'] = 15;

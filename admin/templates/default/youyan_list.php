@@ -1,6 +1,6 @@
 <?php if ( ! defined('IN_DILICMS')) exit('No direct script access allowed');?>
 <div class="headbar">
-	<div class="position"><span>油烟监测</span><span>></span><span>数据</span></div>
+	<div class="position"><span>油烟监测</span><span>></span><span>列表</span></div>
 	<div class="operating">
 		<a class="hack_ie" href="<?php echo backend_url('youyan/add'); ?>"><button class="operating_btn" type="button"><span class="addition">添加新设备</span></button></a>
         <!-- 
@@ -26,7 +26,6 @@
 					<th>设备编号</th>
                     <th>设备名称</th>
                     <th>采集时间</th>
-                    
                     <th>操作选项</th>
 				</tr>
 			</thead>

@@ -2,7 +2,7 @@
 /**
  * DiliCMS
  *
- * 一款基于并面向CodeIgniter开发者的开源轻型后端内容管理系统.
+ * 涓�娆惧熀浜庡苟闈㈠悜CodeIgniter寮�鍙戣�呯殑寮�婧愯交鍨嬪悗绔唴瀹圭鐞嗙郴缁�.
  *
  * @package     DiliCMS
  * @author      DiliCMS Team
@@ -16,7 +16,7 @@
 // ------------------------------------------------------------------------
 
 /**
- * DiliCMS 后台权限控制类
+ * DiliCMS 鍚庡彴鏉冮檺鎺у埗绫�
  *
  * @package     DiliCMS
  * @subpackage  Libraries
@@ -28,7 +28,7 @@ class Acl
 {
 	/**
      * ci
-     * CI超级类句柄
+     * CI瓒呯骇绫诲彞鏌�
      *
      * @var object
      * @access  private
@@ -37,7 +37,7 @@ class Acl
 
 	/**
      * top_menus
-     * 一级菜单集合
+     * 涓�绾ц彍鍗曢泦鍚�
      *
      * @var array
      * @access  private
@@ -46,7 +46,7 @@ class Acl
 
 	/**
      * _left_menus
-     * 二三级菜单集合
+     * 浜屼笁绾ц彍鍗曢泦鍚�
      *
      * @var array
      * @access  private
@@ -55,7 +55,7 @@ class Acl
 
 	/**
      * _current_menu
-     * 当前所在的菜单的下标
+     * 褰撳墠鎵�鍦ㄧ殑鑿滃崟鐨勪笅鏍�
      *
      * @var int
      * @access  private
@@ -64,7 +64,7 @@ class Acl
 
 	/**
      * _default_link
-     * 当前所在的链接
+     * 褰撳墠鎵�鍦ㄧ殑閾炬帴
      *
      * @var string
      * @access  public
@@ -73,7 +73,7 @@ class Acl
 
 	/**
      * _rights
-     * 权限集合
+     * 鏉冮檺闆嗗悎
      *
      * @var array
      * @access  public
@@ -81,7 +81,7 @@ class Acl
 	public $rights = array();
 
 	/**
-     * 构造函数
+     * 鏋勯�犲嚱鏁�
      *
      * @access  public
      * @return  void
@@ -89,12 +89,14 @@ class Acl
 	public function __construct()
 	{
 		$this->ci = & get_instance();
-		$this->ci->settings->load('menus');//加载菜单数据
+		$this->ci->settings->load('menus');//鍔犺浇鑿滃崟鏁版嵁
 		$this->top_menus = & setting('menus');
+		
 		if ($this->ci->_admin->role != 1)
 		{
-			$this->ci->settings->load('acl/role_' . $this->ci->_admin->role . '.php');//加载权限数据
+			$this->ci->settings->load('acl/role_' . $this->ci->_admin->role . '.php');//鍔犺浇鏉冮檺鏁版嵁
 			$this->top_menus = & setting('menus');
+			
 			$this->rights = & setting('current_role');
 		}
 		$this->_filter_menus();
@@ -103,14 +105,14 @@ class Acl
 	// ------------------------------------------------------------------------
 
     /**
-     * 输出顶部菜单
+     * 杈撳嚭椤堕儴鑿滃崟
      *
      * @access  public
      * @return  void
      */
 	public function show_top_menus()
 	{
-		//检查是否显示顶部插件菜单.
+		//妫�鏌ユ槸鍚︽樉绀洪《閮ㄦ彃浠惰彍鍗�.
 		$is_show_module_menu = FALSE;
 		if ($this->ci->plugin_manager->get_menus())
 		{
@@ -123,7 +125,7 @@ class Acl
 			{
 				continue;
 			}
-			//var_dump($this->_current_menu);
+			
 			echo '<li class="' . ($key == 0 ? 'first' : ($key == $last_menu_key ? 'last' : '')) . 
 			     ' ' .($key == $this->_current_menu ? 'selected' : '').'"><a href="' . 
 			     backend_url($v['class_name'] . '/' . $v['method_name']) . '">' . $v['menu_name'] .'</a>
@@ -134,14 +136,14 @@ class Acl
 	// ------------------------------------------------------------------------
 
     /**
-     * 输出边栏菜单
+     * 杈撳嚭杈规爮鑿滃崟
      *
      * @access  public
      * @return  void
      */
 	public function show_left_menus()
 	{
-		//var_dump($this->left_menus);
+		
 		foreach ($this->left_menus as $key => $v)
 		{
 			if ($v['sub_menus'])
@@ -169,13 +171,14 @@ class Acl
 	// ------------------------------------------------------------------------
 
     /**
-     * 过滤菜单
+     * 杩囨护鑿滃崟
      *
      * @access  private
      * @return  void
      */
 	private function _filter_menus()
 	{
+	    
 		$class_name = $this->ci->uri->rsegment(1);
 		$method_name = $this->ci->uri->rsegment(2);
 		
@@ -216,7 +219,7 @@ class Acl
 // ------------------------------------------------------------------------
 
     /**
-     * 过滤监测菜单
+     * 杩囨护鐩戞祴鑿滃崟
      *
      * @access  private
      * @param   string
@@ -227,13 +230,15 @@ class Acl
 	{//1
 		$this->_current_menu = $current_menu;
 		
-		//var_dump($this->top_menus[$this->_current_menu]);
 		$this->left_menus = & $this->top_menus[$this->_current_menu]['sub_menus'];
+	
 		$extra = $this->ci->input->get('model');
 		foreach ($this->left_menus as $vkey => & $v)
 		{
+		    //var_dump($v['sub_menus']);
 			foreach ($v['sub_menus'] as $jkey => & $j)
 			{
+			   
 				if ($j['class_name'] == $class_name AND $j['method_name'] == $method_name AND 
 					( ($j['extra'] == $extra AND $vkey == 0) || ($j['extra'] == $extra AND $vkey == 1) ) )
 				{
@@ -244,12 +249,16 @@ class Acl
 				{
 					continue;
 				}
+				
+				
 				$right = $j['class_name'] . '@' . $j['method_name'];
+				
 				if ( ! in_array($right, $this->rights['rights']) || 
-				   ( ! in_array($j['extra'], $this->rights['models']) AND $vkey == 0) ||
-				   ( ! in_array($j['extra'], $this->rights['category_models']) AND $vkey == 1) 		
+				   ((!empty($j['extra'])) AND ! in_array($j['extra'], $this->rights['models']) AND $vkey == 0) ||
+				    ((!empty($j['extra'])) AND! in_array($j['extra'], $this->rights['category_models']) AND $vkey == 1) 		
 				)
 				{
+				    
 					unset($this->left_menus[$vkey]['sub_menus'][$jkey]);
 				}
 			} 
@@ -258,12 +267,15 @@ class Acl
 				unset($this->left_menus[$vkey]);
 			}
 		}
-		//设定默认链接 
+		//璁惧畾榛樿閾炬帴 
 		if ($_item = @ reset($this->left_menus[0]['sub_menus']))
 		{
 		    if ( ! $this->_default_link)
 			{
-			    $this->_default_link = backend_url($_item['class_name'] . '/view', 'model=' . $_item['extra']);	
+			    if(!empty($_item['extra']))
+			    {
+			         $this->_default_link = backend_url($_item['class_name'] . '/view', 'model=' . $_item['extra']);	
+			    }
 			}
 		}
 		
@@ -272,7 +284,7 @@ class Acl
 	// ------------------------------------------------------------------------
 
     /**
-     * 过滤系统菜单
+     * 杩囨护绯荤粺鑿滃崟
      *
      * @access  private
      * @param   string
@@ -312,7 +324,7 @@ class Acl
 	// ------------------------------------------------------------------------
 
     /**
-     * 过滤模型菜单
+     * 杩囨护妯″瀷鑿滃崟
      *
      * @access  private
      * @param   string
@@ -352,7 +364,7 @@ class Acl
 				unset($this->left_menus[$vkey]);
 			}
 		}
-		//设定默认链接 
+		//璁惧畾榛樿閾炬帴 
 		if ($_item = @ reset($this->left_menus[0]['sub_menus']))
 		{
 		    if ( ! $this->_default_link)
@@ -366,7 +378,7 @@ class Acl
 	// ------------------------------------------------------------------------
 
     /**
-     * 过滤插件菜单
+     * 杩囨护鎻掍欢鑿滃崟
      *
      * @access  private
      * @param   string
@@ -381,7 +393,7 @@ class Acl
 	// ------------------------------------------------------------------------
 
     /**
-     * 检测模块插件菜单
+     * 妫�娴嬫ā鍧楁彃浠惰彍鍗�
      *
      * @access  public
      * @return  void
@@ -421,7 +433,7 @@ class Acl
 	// ------------------------------------------------------------------------
 
     /**
-     * 检测插件
+     * 妫�娴嬫彃浠�
      *
      * @access  public
      * @param   string
@@ -465,7 +477,7 @@ class Acl
 	// ------------------------------------------------------------------------
 
     /**
-     * 设置顶部选中菜单
+     * 璁剧疆椤堕儴閫変腑鑿滃崟
      *
      * @access  public
      * @param   int
@@ -479,7 +491,7 @@ class Acl
 	// ------------------------------------------------------------------------
 
 	/**
-     * 触发自定义菜单的检测
+     * 瑙﹀彂鑷畾涔夎彍鍗曠殑妫�娴�
      *
      * @access  public
      * @param   int
